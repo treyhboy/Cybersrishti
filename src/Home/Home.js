@@ -61,6 +61,29 @@ const ButtonBox = styled.div`
   height: 20%;
   width: 100%;
 `;
+const CartBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  margin-top: 16rem;  
+  height: 10%;
+  width: 75%;
+  margin-left: 4rem;
+  margin-right: 4rem;
+  
+`;
+const Cart = styled.img`
+  display: flex;
+  height: 3rem;
+  width: auto;
+`
+const Man = styled.img`
+  display: flex;
+  border-radius: 100%;
+  height: 4rem;
+  width: auto;
+`
+
 const NavSelect = styled.div`
   display: flex;
   justify-content: space-around;
@@ -139,6 +162,11 @@ class Home extends Component {
         sessionStorage.setItem("Token",v)
         this.setState({isAuthenticated:v})
     }
+    Click=()=>
+    {
+        sessionStorage.setItem("Token",false)
+        this.setState({isAuthenticated:false})
+    }
     render() {
         return (
             <Container>
@@ -164,18 +192,21 @@ class Home extends Component {
                             <NavIcon src={require('../Img/fork.png')}/>
                             Food
                         </NavSelect>
-                        <ButtonBox>
-                        <Link to={"/Login"} style={{textDecoration:"none"}}>
-                        <LoginButton>
-                            Login
-                        </LoginButton>
-                        </Link>
-                        <Link to={"/Signup"} style={{textDecoration:"none"}}>
-                            <SignupButton>
-                                Signup
-                            </SignupButton>
-                        </Link>
-                        </ButtonBox>
+                        {this.state.isAuthenticated?<CartBox>
+                            <Man src={require("../Img/pp.jpg")} onClick={this.Click}/>
+                            <Cart src={require("../Img/cart.svg")}/>
+                        </CartBox>:<ButtonBox>
+                            <Link to={"/Login"} style={{textDecoration:"none"}}>
+                                <LoginButton>
+                                    Login
+                                </LoginButton>
+                            </Link>
+                            <Link to={"/Signup"} style={{textDecoration:"none"}}>
+                                <SignupButton>
+                                    Signup
+                                </SignupButton>
+                            </Link>
+                        </ButtonBox>}
                     </Nav>
                     <Switch>
                         <Route exact path="/Login" render={()=><Login auth={this.auth} history={this.props.history}/>} />
@@ -189,4 +220,7 @@ class Home extends Component {
 }
 
 export default Home;
-
+{/*<CartBox>*/}
+    {/*<Man src={require("../Img/pp.jpg")}/>*/}
+    {/*<Cart src={require("../Img/cart.svg")}/>*/}
+{/*</CartBox>*/}
