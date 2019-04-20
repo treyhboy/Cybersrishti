@@ -1,26 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createGlobalStyle } from "styled-components";
+import { Router, BrowserRouter, Route, Switch } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import Home from "./Home/Home";
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+  }
+
+  html{
+  font-size: 10px;
+  font-family: 'Lato', sans-serif;
+  }
+`;
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+    render() {
+      return (
+          <Router history={createBrowserHistory()}>
+            <div>
+              <GlobalStyle />
+              <BrowserRouter>
+                <Switch>
+                  <Route path="/" component={Home} />
+                </Switch>
+              </BrowserRouter>
+            </div>
+          </Router>
     );
   }
 }
